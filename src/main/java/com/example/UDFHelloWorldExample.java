@@ -13,9 +13,13 @@ import java.util.logging.Logger;
 public class UDFHelloWorldExample extends UDF {
   
   private final static Logger log = Logger.getLogger(UDFHelloWorldExample.class.getName());
-  public Text evaluate(Text input) {
+  public Text evaluate(Text input) throws Exception {
     if(input == null) return null;
     log.info("Test logger, it can be found in the mapper log");
-    return new Text("Hello " + input.toString());
+
+    if(input.toString().equals("test")) {
+      throw new Exception("I want to throw exception");
+    }
+    return new Text("Hello there, " + input.toString());
   }
 }
